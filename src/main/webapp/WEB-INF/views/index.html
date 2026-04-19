@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:lang="${currentLocale}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RikkeiMall I18N Demo</title>
+    <style>
+        :root {
+            color-scheme: light;
+            --bg: #f4efe5;
+            --panel: #fffaf0;
+            --text: #202020;
+            --muted: #6b665e;
+            --accent: #c84c09;
+            --accent-soft: #f3c8ad;
+            --border: #ded4c5;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: "Segoe UI", sans-serif;
+            background:
+                radial-gradient(circle at top right, rgba(200, 76, 9, 0.16), transparent 28%),
+                linear-gradient(180deg, #fbf7ef 0%, var(--bg) 100%);
+            color: var(--text);
+        }
+
+        .page {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 32px 20px 48px;
+        }
+
+        .topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            margin-bottom: 48px;
+        }
+
+        .brand {
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+        }
+
+        .language-switcher {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .language-switcher a {
+            text-decoration: none;
+            color: var(--text);
+            border: 1px solid var(--border);
+            background: var(--panel);
+            padding: 10px 16px;
+            border-radius: 999px;
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+
+        .language-switcher a:hover {
+            transform: translateY(-1px);
+            border-color: var(--accent);
+        }
+
+        .hero {
+            display: grid;
+            grid-template-columns: 1.3fr 1fr;
+            gap: 24px;
+            align-items: stretch;
+        }
+
+        .hero-copy,
+        .menu-panel {
+            background: rgba(255, 250, 240, 0.88);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 28px;
+            backdrop-filter: blur(10px);
+        }
+
+        .eyebrow {
+            display: inline-block;
+            margin: 0 0 16px;
+            padding: 8px 14px;
+            border-radius: 999px;
+            background: var(--accent-soft);
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        h1 {
+            margin: 0 0 16px;
+            font-size: clamp(34px, 4vw, 56px);
+            line-height: 1.05;
+        }
+
+        .lead {
+            margin: 0;
+            color: var(--muted);
+            font-size: 18px;
+            line-height: 1.7;
+        }
+
+        .locale-chip {
+            display: inline-flex;
+            margin-top: 24px;
+            padding: 10px 14px;
+            border-radius: 999px;
+            background: #1c1c1c;
+            color: #f7f3eb;
+            font-size: 14px;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 16px;
+            margin-top: 24px;
+        }
+
+        .menu-card {
+            padding: 20px;
+            border-radius: 18px;
+            background: #fff;
+            border: 1px solid var(--border);
+        }
+
+        .menu-card span {
+            display: block;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--muted);
+            margin-bottom: 8px;
+        }
+
+        .menu-card strong {
+            font-size: 24px;
+        }
+
+        @media (max-width: 840px) {
+            .hero {
+                grid-template-columns: 1fr;
+            }
+
+            .topbar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+
+        @media (max-width: 520px) {
+            .menu-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="page">
+    <header class="topbar">
+        <div class="brand">RikkeiMall</div>
+        <nav class="language-switcher">
+            <a th:href="@{/(lang='en')}" th:text="#{language.english}">English</a>
+            <a th:href="@{/(lang='ja')}" th:text="#{language.japanese}">Japanese</a>
+            <a th:href="@{/(lang='ko')}" th:text="#{language.korean}">Korean</a>
+        </nav>
+    </header>
+
+    <main class="hero">
+        <section class="hero-copy">
+            <p class="eyebrow" th:text="#{home.greeting}">Hello</p>
+            <h1 th:text="#{home.headline}">Shop the world, locally.</h1>
+            <p class="lead" th:text="#{home.description}">
+                Your preferred language is stored in a cookie so the next visit opens with the same experience.
+            </p>
+            <div class="locale-chip" th:text="${'lang=' + currentLocale}">lang=en</div>
+        </section>
+
+        <aside class="menu-panel">
+            <div class="menu-grid">
+                <article class="menu-card">
+                    <span>01</span>
+                    <strong th:text="#{menu.cart}">Cart</strong>
+                </article>
+                <article class="menu-card">
+                    <span>02</span>
+                    <strong th:text="#{menu.login}">Login</strong>
+                </article>
+                <article class="menu-card">
+                    <span>03</span>
+                    <strong th:text="#{menu.promotions}">Promotions</strong>
+                </article>
+                <article class="menu-card">
+                    <span>04</span>
+                    <strong th:text="#{menu.support}">Support</strong>
+                </article>
+            </div>
+        </aside>
+    </main>
+</div>
+</body>
+</html>
