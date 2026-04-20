@@ -14,4 +14,6 @@ public class HomeController {
         model.addAttribute("currentLocale", locale.toLanguageTag());
         return "index";
     }
+
+
 }
